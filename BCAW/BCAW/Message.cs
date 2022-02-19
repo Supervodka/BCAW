@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace BCAW
 {
-    internal class Message
+    public class Message
     {
-        public string? Messag { get; set; }
+        public string? TextOfMessage { get; set; }
+        public int DateTime { get; set; }
+        public string? AuthorId     { get; set; }
+        public int MessageId { get; set; }
     }
 }

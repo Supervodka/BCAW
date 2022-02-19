@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace BCAW
 {
-    internal class Comment
+    public class Comment
     {
-        public string? Comm { get; set; }
+        public string? TextOfComment { get; set; }
+        public int DateTime { get; set; }
+        public string? AuthorId  { get; set; }
+        public int CommentId { get; set; }
+
     }
 }
