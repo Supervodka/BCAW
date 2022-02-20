@@ -11,10 +11,7 @@ namespace BCAW
         public int Age { get; set; }
         public string? City { get; set; }
         
-        public bool ? Experience { get; set; } = true;
-        public string ? Job { get; set; }
-        public int Salary { get; set; }
-        public string? AFewWords { get; set; }
+       
         public Gender? Gender { get; set; }
         public Role? Role { get; set; }
     }
