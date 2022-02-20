@@ -1,7 +1,8 @@
 ﻿
 namespace BCAW
 {
-    public class UserData
+    
+    public class User
     {
         public int Id { get; set; }
         public string? Name { get; set; }
@@ -14,6 +15,7 @@ namespace BCAW
         public string ? Job { get; set; }
         public int Salary { get; set; }
         public string? AFewWords { get; set; }
-
+        public Gender? Gender { get; set; }
+        public Role? Role { get; set; }
     }
 }
