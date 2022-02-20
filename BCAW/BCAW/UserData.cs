@@ -9,7 +9,7 @@ namespace BCAW
         public string? Email { get; set; }
         public int Age { get; set; }
         public string? City { get; set; }
-        public enum Gender {Male,Female}
+        
         public bool ? Experience { get; set; } = true;
         public string ? Job { get; set; }
         public int Salary { get; set; }
