@@ -7,23 +7,34 @@ do
 
 void AskUser()
 {
-    Console.Clear();
+   
     Console.WriteLine("Что вы хотите?");
     Console.WriteLine("1 - Добавить пользователя");
     Console.WriteLine("2 - Посчитай мне пользователей");
-    Console.WriteLine("3-добавить анкету");
-   
+    Console.WriteLine("3 - Добавить анкету");
+    Console.WriteLine("4 - Поиск анкеты");
+    Console.WriteLine("5 - Отобразить все анкеты");
+    Console.WriteLine("6 - Принять предложение");
+    Console.WriteLine("7 - Создать комментарий к предложению");
+    Console.WriteLine("8 - Редактирование аккаунта");
+  
+
     var answer = Convert.ToInt32(Console.ReadLine());
     switch (answer)
     {
         case 1: AddUser(); break;
         case 2: CountUser(); break;
         case 3: AddOffer(); break;
+        default:
+            Console.WriteLine("Введите корректное число");
+            break ; 
     }
+   
 }
 
 void AddUser()
 {
+    Console.Clear();
     Console.WriteLine("Введите имя пользователя");
     
     var name = Console.ReadLine();
@@ -39,13 +50,27 @@ void AddUser()
 void CountUser()
 {
     Console.Clear();
-    Console.WriteLine(Storage.Users.Count);
-    Console.ReadKey();
+   if (Storage.Users.Count == 0){
+        Console.WriteLine("Список пуст");
+    } 
+   else
+    {
+        Console.WriteLine($"количество пользователей : {Storage.Users.Count}");
+        foreach (var user in Storage.Users)
+        {
+            Console.WriteLine(user.Name);
+            Console.WriteLine(user.Age);
+        }
+        Console.ReadKey();
+    }
+   
 }
 void AddOffer()
 {
+    Console.Clear();
     if (Storage.Users.Count == 0)
     {
+        
         Console.WriteLine("Пользователей нету");
         AskUser();
     }
