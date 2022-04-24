@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BCAW;
-
-namespace BCAW
+﻿namespace BCAW
 {
-    public static class UserService
+    public class UserService : IUserService
     {
-
-        public static void AddUser(User user)
+        public void AddUser(User user)
         {
-           
+
             Storage.Users.Add(user);
         }
-        public static int CountUser()
+        public int CountUser()
         {
            return Storage.Users.Count;
         }
-        public static int ChooseUser()
+        public int ChooseUser()
         {
             Console.WriteLine("Выберите пользователя");
             DrawUsers();
@@ -37,12 +29,13 @@ namespace BCAW
         }
 
 
-        public static void DrawUsers()
+        public void DrawUsers()
         {
             foreach (var user in Storage.Users)
                 DrawUser(user);
         }
-        public static void DrawUser(User user)
+
+        public void DrawUser(User user)
         {
             Console.WriteLine($"user id:{user.Id}");
             Console.WriteLine($"user name:{user.Name}");

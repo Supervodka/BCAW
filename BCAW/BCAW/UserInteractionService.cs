@@ -1,18 +1,91 @@
 ﻿using BCAW.BusinessLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BCAW
 {
-    internal static class UserInteractionService
+    public class UserInteractionService
     {
-        public static Offer? AddOffer()
+        private readonly IUserService _userService;
+
+        public UserInteractionService(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        public void Run()
+        {
+            do
+            {
+                AskUser();
+            } while (true);
+        }
+
+        void AskUser()
+        {
+            Console.WriteLine("Что вы хотите?");
+            Console.WriteLine("1 - Добавить пользователя");
+            Console.WriteLine("2 - Посчитай мне пользователей");
+            Console.WriteLine("3 - Добавить анкету");
+            Console.WriteLine("4 - Поиск анкеты");
+            Console.WriteLine("5 - Отобразить все анкеты");
+            Console.WriteLine("6 - Взять заказ");
+            Console.WriteLine("7 - Создать комментарий к предложению");
+            Console.WriteLine("8 - Редактирование аккаунта");
+
+
+            var answer = Convert.ToInt32(Console.ReadLine());
+            switch (answer)
+            {
+                case 1:
+                    var insertedUser = AddUser();
+                    _userService.AddUser(insertedUser);
+                    break;
+                case 2:
+                    var count = _userService.CountUser();
+                    UserCount(count);
+                    break;
+
+                case 3:
+                    var offer = AddOffer();
+                    if (offer != null)
+                    {
+                        OfferService.AddOffer(offer);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not found");
+                    }
+
+                    break;
+
+                case 4:
+                    var searchResult = OfferService.SearchOffer();
+                    DrawOffers(searchResult);
+                    break;
+
+                case 5:
+                    var offers = OfferService.GetAllOffers();
+                    CheckAllOffers(offers);
+                    break;
+
+                case 6:
+
+                    var offerConfirmed = ConfirmOffer();
+                    OfferService.RemoveOffer(offerConfirmed);
+
+                    break;
+
+                default:
+                    Console.WriteLine("Введите корректное число");
+                    break;
+            }
+
+        }
+
+
+        public Offer? AddOffer()
         {
             Console.Clear();
-            if (UserService.CountUser() == 0)
+            if (_userService.CountUser() == 0)
             {
                 Console.WriteLine("Пользователей нету");
                 return null;
@@ -30,14 +103,14 @@ namespace BCAW
                 Console.WriteLine("Пару слов о себе");
                 offer.AFewWords = Console.ReadLine();
                 offer.Id = Storage.Offers.Count;
-                offer.UserId = UserService.ChooseUser();
+                offer.UserId = _userService.ChooseUser();
 
                 return offer;
             }
 
         }
 
-        public static User AddUser()
+        public User AddUser()
         {
             Console.Clear();
             Console.WriteLine("Введите имя пользователя");
@@ -50,22 +123,24 @@ namespace BCAW
             {
                 Name = name,
                 Age = age,
-                Id = UserService.CountUser(),
+                Id = _userService.CountUser(),
             };
         }
-        public static void UserCount(int userCount)
+
+        public void UserCount(int userCount)
         {
             Console.WriteLine(userCount);
 
         }
 
         // приниммет входящую коллекцию и делает  перебор обьектов и отрисовывает методом DrawOffer каждый по очереди
-        public static void DrawOffers(List<Offer> offerCollection)
-        {   
+        public void DrawOffers(List<Offer> offerCollection)
+        {
             if (offerCollection == null)
             {
                 return;
             }
+
             foreach (var offer in offerCollection)
             {
                 DrawOffer(offer);
@@ -73,7 +148,7 @@ namespace BCAW
         }
 
         //отрисовка полей-данных анкеты
-        public static void DrawOffer(Offer offer)
+        public void DrawOffer(Offer offer)
         {
             Console.WriteLine($"offer id:{offer.Id}");
             Console.WriteLine($"Job:{offer.Job}");
@@ -82,14 +157,16 @@ namespace BCAW
             Console.WriteLine($"A fer words:{offer.AFewWords}");
             Console.WriteLine();
         }
-        public static void CheckAllOffers(List<Offer> offers)
+
+        public void CheckAllOffers(List<Offer> offers)
         {
             DrawOffers(offers);
         }
-        public static int ConfirmOffer()
+
+        public int ConfirmOffer()
         {
             Console.WriteLine("Введите номер выбранной анкеты");
-           return Convert.ToInt32(Console.ReadLine());
+            return Convert.ToInt32(Console.ReadLine());
 
         }
     }
