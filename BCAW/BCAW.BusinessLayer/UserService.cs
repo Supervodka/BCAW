@@ -27,8 +27,6 @@
                 return a;
             }
         }
-
-
         public void DrawUsers()
         {
             foreach (var user in Storage.Users)

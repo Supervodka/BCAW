@@ -1,4 +1,5 @@
 ﻿using BCAW;
+using BCAW.BusinessLayer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -7,6 +8,7 @@ using var host = Host.CreateDefaultBuilder(args)
         services
             .AddTransient<UserInteractionService>()
             .AddTransient<IUserService, UserService>()
+            .AddTransient<IOfferService, OfferService>()
 
         //.AddTransient<ITransientOperation, DefaultOperation>()
         //.AddScoped<IScopedOperation, DefaultOperation>()

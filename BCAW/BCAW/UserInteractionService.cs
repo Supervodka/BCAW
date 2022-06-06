@@ -5,10 +5,13 @@ namespace BCAW
     public class UserInteractionService
     {
         private readonly IUserService _userService;
+        private readonly IOfferService _offerService;
 
-        public UserInteractionService(IUserService userService)
+
+        public UserInteractionService(IUserService userService,IOfferService offerService)
         {
             _userService = userService;
+            _offerService = offerService;
         }
 
         public void Run()
@@ -48,7 +51,7 @@ namespace BCAW
                     var offer = AddOffer();
                     if (offer != null)
                     {
-                        OfferService.AddOffer(offer);
+                        _offerService.AddOffer(offer);
                     }
                     else
                     {
@@ -58,19 +61,21 @@ namespace BCAW
                     break;
 
                 case 4:
-                    var searchResult = OfferService.SearchOffer();
+                    Console.WriteLine("Введите критерии поиска");
+                    var search = Console.ReadLine();
+                    var searchResult = _offerService.SearchOffer(search);
                     DrawOffers(searchResult);
                     break;
 
                 case 5:
-                    var offers = OfferService.GetAllOffers();
+                    var offers = _offerService.GetAllOffers();
                     CheckAllOffers(offers);
                     break;
 
                 case 6:
 
                     var offerConfirmed = ConfirmOffer();
-                    OfferService.RemoveOffer(offerConfirmed);
+                    _offerService.RemoveOffer(offerConfirmed);
 
                     break;
 

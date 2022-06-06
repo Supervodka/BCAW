@@ -6,40 +6,36 @@ using System.Threading.Tasks;
 
 namespace BCAW.BusinessLayer
 {
-    public static class OfferService
+    public  class 
+        OfferService : IOfferService 
     {
 
-        public static void AddOffer(Offer offer)
+        public  void AddOffer(Offer offer)
         {
             { 
                 Storage.Offers.Add(offer);
             }
         }
+
         //вызывает метод отрисовки всех анкет по отдельности
         
         //делаем поиск по всем анкетам и передаём в новую коллекцию result
-        public static List<Offer> SearchOffer()
+        public  List<Offer> SearchOffer(string offerSearch)
         {
-            Console.WriteLine("Введите критерии поиска");
-            var offerSearch = Console.ReadLine() ?? "";
             return Storage.Offers
                 .Where(offer =>
                     offer.Job.Contains(offerSearch))
                 .ToList();
         }
 
-        public static void RemoveOffer(int removedOffer)
+        public  void RemoveOffer(int removedOffer)
         {
             var deletedOffer = Storage.Offers.FirstOrDefault(o => o.Id == removedOffer);
             Storage.Offers.Remove(deletedOffer);
         }
+        
 
-
-
-       
-
-
-        public static List<Offer> GetAllOffers()
+        public  List<Offer> GetAllOffers()
         {
             var collection = Storage.Offers;
 
