@@ -107,7 +107,7 @@ namespace BCAW
                 offer.Reward = Console.ReadLine();
                 Console.WriteLine("Пару слов о себе");
                 offer.AFewWords = Console.ReadLine();
-                offer.Id = Storage.Offers.Count;
+                offer.Id = _offerService.GetAllOffers().Count;
                 offer.UserId = _userService.ChooseUser();
 
                 return offer;

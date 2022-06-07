@@ -2,21 +2,28 @@
 {
     public class UserService : IUserService
     {
+        private readonly ApplicationContext _context;
+
+        public UserService()
+        {
+            _context = new ApplicationContext();
+        }
+
         public void AddUser(User user)
         {
+            _context.FooUsers.Add(user);
 
-            Storage.Users.Add(user);
         }
         public int CountUser()
         {
-           return Storage.Users.Count;
+           return ApplicationContext.Users.Count;
         }
         public int ChooseUser()
         {
             Console.WriteLine("Выберите пользователя");
             DrawUsers();
             int userId = Convert.ToInt32(Console.ReadLine());
-            if (userId <= Storage.Users.Count)
+            if (userId <= ApplicationContext.Users.Count)
             {
                 return userId;
             }
@@ -29,7 +36,7 @@
         }
         public void DrawUsers()
         {
-            foreach (var user in Storage.Users)
+            foreach (var user in ApplicationContext.Users)
                 DrawUser(user);
         }
 

@@ -12,17 +12,18 @@ namespace BCAW.BusinessLayer
 
         public  void AddOffer(Offer offer)
         {
-            { 
-                Storage.Offers.Add(offer);
-            }
+            using var context = new ApplicationContext();
+            context.Offers.Add(offer);
+            context.SaveChanges();
         }
 
         //вызывает метод отрисовки всех анкет по отдельности
-        
         //делаем поиск по всем анкетам и передаём в новую коллекцию result
         public  List<Offer> SearchOffer(string offerSearch)
         {
-            return Storage.Offers
+            using var context = new ApplicationContext();
+            return context.Offers
+                //загуглить про .Include()
                 .Where(offer =>
                     offer.Job.Contains(offerSearch))
                 .ToList();
@@ -30,16 +31,18 @@ namespace BCAW.BusinessLayer
 
         public  void RemoveOffer(int removedOffer)
         {
-            var deletedOffer = Storage.Offers.FirstOrDefault(o => o.Id == removedOffer);
-            Storage.Offers.Remove(deletedOffer);
+            using var context = new ApplicationContext();
+            var deletedOffer = context.Offers.FirstOrDefault(o => o.Id == removedOffer);
+            context.Offers.Remove(deletedOffer);
+            context.SaveChanges();
         }
         
 
         public  List<Offer> GetAllOffers()
         {
-            var collection = Storage.Offers;
-
-            return collection;
+            using var context = new ApplicationContext();
+            var collection = context.Offers;
+            return collection.ToList();
         }
     }
 }
