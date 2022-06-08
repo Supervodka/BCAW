@@ -12,18 +12,18 @@
         public void AddUser(User user)
         {
             _context.FooUsers.Add(user);
-
+            _context.SaveChanges();
         }
         public int CountUser()
         {
-           return ApplicationContext.Users.Count;
+           return _context.FooUsers.Count();
         }
         public int ChooseUser()
         {
             Console.WriteLine("Выберите пользователя");
             DrawUsers();
             int userId = Convert.ToInt32(Console.ReadLine());
-            if (userId <= ApplicationContext.Users.Count)
+            if (userId <= _context.FooUsers.Count())
             {
                 return userId;
             }
@@ -36,7 +36,7 @@
         }
         public void DrawUsers()
         {
-            foreach (var user in ApplicationContext.Users)
+            foreach (var user in _context.FooUsers)
                 DrawUser(user);
         }
 

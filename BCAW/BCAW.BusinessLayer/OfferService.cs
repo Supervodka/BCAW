@@ -7,22 +7,27 @@ using System.Threading.Tasks;
 namespace BCAW.BusinessLayer
 {
     public  class 
+
         OfferService : IOfferService 
+        
     {
+        private readonly ApplicationContext _context;
+        public OfferService()
+        {
+            _context = new ApplicationContext();
+        }
 
         public  void AddOffer(Offer offer)
         {
-            using var context = new ApplicationContext();
-            context.Offers.Add(offer);
-            context.SaveChanges();
+            _context.Offers.Add(offer);
+            _context.SaveChanges();
         }
 
         //вызывает метод отрисовки всех анкет по отдельности
         //делаем поиск по всем анкетам и передаём в новую коллекцию result
         public  List<Offer> SearchOffer(string offerSearch)
         {
-            using var context = new ApplicationContext();
-            return context.Offers
+            return _context.Offers
                 //загуглить про .Include()
                 .Where(offer =>
                     offer.Job.Contains(offerSearch))
@@ -31,18 +36,14 @@ namespace BCAW.BusinessLayer
 
         public  void RemoveOffer(int removedOffer)
         {
-            using var context = new ApplicationContext();
-            var deletedOffer = context.Offers.FirstOrDefault(o => o.Id == removedOffer);
-            context.Offers.Remove(deletedOffer);
-            context.SaveChanges();
+            var deletedOffer = _context.Offers.FirstOrDefault(o => o.Id == removedOffer);
+            _context.Offers.Remove(deletedOffer);
+            _context.SaveChanges();
         }
         
-
         public  List<Offer> GetAllOffers()
         {
-            using var context = new ApplicationContext();
-            var collection = context.Offers;
-            return collection.ToList();
+            return _context.Offers.ToList();
         }
     }
 }

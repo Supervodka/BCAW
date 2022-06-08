@@ -28,5 +28,4 @@ static void ExemplifyScoping(IServiceProvider services)
 
     var userInteractionService = provider.GetRequiredService<UserInteractionService>();
     userInteractionService.Run();
-
 }

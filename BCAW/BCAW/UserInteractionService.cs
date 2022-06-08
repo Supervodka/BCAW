@@ -6,8 +6,6 @@ namespace BCAW
     {
         private readonly IUserService _userService;
         private readonly IOfferService _offerService;
-
-
         public UserInteractionService(IUserService userService,IOfferService offerService)
         {
             _userService = userService;

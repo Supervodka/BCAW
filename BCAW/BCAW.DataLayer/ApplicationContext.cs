@@ -11,7 +11,10 @@ namespace BCAW
         public DbSet<Offer> Offers { get; set; }
             protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             {
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-6Q2F7G5;Database=helloappdb;Trusted_Connection=True;");
-            }
+                optionsBuilder.UseSqlServer(@"Server=WS-779;Database=helloappdb;Trusted_Connection=True;");
+            //WS-779 workmachine server
+            //DESKTOP-6Q2F7G5 home
+
         }
+    }
     }
